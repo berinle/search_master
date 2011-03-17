@@ -25,8 +25,11 @@ public class Movie {
     @Field
     String genre;
 
-    //relationships
+    @Version
+    long version = 0;
 
+    //relationships
+    //casts, locations, writer, producer, e.t.c
 
     public Long getId() {
         return id;
@@ -58,5 +61,13 @@ public class Movie {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public long getVersion() {
+        return version;
+    }
+
+    public void setVersion(long version) {
+        this.version = version;
     }
 }

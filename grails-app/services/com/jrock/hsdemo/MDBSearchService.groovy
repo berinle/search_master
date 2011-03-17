@@ -2,22 +2,33 @@ package com.jrock.hsdemo
 
 import org.hibernate.search.backend.impl.jms.AbstractJMSHibernateSearchController
 import org.hibernate.Session
+import javax.jms.Message
 
 class MDBSearchService extends AbstractJMSHibernateSearchController {
 
     static transactional = false
     static exposes = ['jms']
-    static destination = "queue.hibernatesearch"
+    def sessionFactory
+    def mySession
 
-    def onMessage(it) {
-        log.debug "Received message $it"
-    }
+//    static destination = "queue.hibernatesearch"
+//    static destination = "java:comp/env/queue/hibernatesearch"
+
+    static destination = "HibernateSearchController"
+
+//    public void onMessage(Message message){
+//        log.debug "${Calendar.instance.getTime()} Received message from slave node $message"
+//
+//        super.onMessage message
+//    }
 
     @Override protected Session getSession() {
-        return session;
+//        return sessionFactory.getCurrentSession()
+        mySession = sessionFactory.openSession()
+        return mySession
     }
 
     @Override protected void cleanSessionIfNeeded(Session session) {
-        //session.close() //do nothing, managed environment
+        mySession?.close() //do nothing, managed environment
     }
 }
