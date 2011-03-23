@@ -15,7 +15,11 @@ environments {
         dataSource {
             dbCreate = "create" // one of 'create', 'create-drop','update'
 //            url = "jdbc:hsqldb:file:/Users/berinle/opt/db2/hsdemo"
-            url = "jdbc:hsqldb:hsql://localhost/hsdemo"
+//            url = "jdbc:hsqldb:hsql://localhost/hsdemo"
+            username = "rabbit"
+            password = "rabb1T"
+            driverClassName = "com.mysql.jdbc.Driver"
+            url = "jdbc:mysql://localhost/hsdemo"
         }
     }
     test {
